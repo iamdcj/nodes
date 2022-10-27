@@ -1,0 +1,31 @@
+{
+  "name": "ting",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "notes": "nodemon notes",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iamdcj/node-ting.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iamdcj/node-ting/issues"
+  },
+  "homepage": "https://github.com/iamdcj/node-ting#readme",
+  "dependencies": {
+    "chalk": "^4.0.0",
+    "validator": "^13.7.0",
+    "yargs": "^17.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
