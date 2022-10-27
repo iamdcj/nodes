@@ -1,5 +1,17 @@
-const name = "David";
+const fs = require("fs");
 
-const add = (a, b) => a + b;
+const readWriteData = (file, data = {}) => {
+  const buffer = fs.readFileSync(file);
+  const parsedData = JSON.parse(buffer);
+  
+  const modifiedData = {
+    ...parsedData,
+    ...data,
+  };
 
-module.exports = { name, add };
+  return fs.writeFileSync(file, JSON.stringify(modifiedData));
+};
+
+readWriteData('./data/index.json', {name: "Tosser"})
+
+module.exports = { readWriteData };
