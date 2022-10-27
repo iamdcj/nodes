@@ -45,6 +45,8 @@ const removeNote = (noteTitle) => {
 
     updateNotes(filePath, notes);
 
+    console.log(`${noteTitle} removed successfully`);
+
     readNotes();
   } catch (error) {
     return "Unable to read notes";
