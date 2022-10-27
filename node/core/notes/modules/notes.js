@@ -1,3 +1,4 @@
+const chalk = require("chalk");
 const fs = require("fs");
 const { returnNotes, updateNotes } = require("../utils");
 
@@ -11,9 +12,9 @@ const readNotes = () => {
   try {
     const notes = returnNotes(filePath);
 
-    console.log("All notes: ", notes);
+    console.log(chalk.white.bold.bgBlack("All notes: ", notes.map(({ title, body}) => `${title} - ${body}`).join(', ')));
   } catch (error) {
-    console.error("Unable to read notes");
+    console.log(chalk.white.bold.bgRed(error.message));
   }
 };
 
@@ -31,9 +32,11 @@ const addNote = (note) => {
 
     updateNotes(filePath, notes);
 
+    console.log(chalk.white.bold.bgGreen(`${note.title} added successfully`));
+
     readNotes();
   } catch (error) {
-    console.error(error.message);
+    console.log(chalk.white.bold.bgRed(error.message));
   }
 };
 
@@ -41,15 +44,21 @@ const removeNote = (noteTitle) => {
   try {
     let notes = returnNotes(filePath);
 
+    const noteExists = notes.find(({ title }) => noteTitle === title);
+
+    if (!noteExists) {
+      throw new Error("Note doesn't exist.");
+    }
+
     notes = notes.filter(({ title }) => title !== noteTitle);
 
     updateNotes(filePath, notes);
 
-    console.log(`${noteTitle} removed successfully`);
+    console.log(chalk.white.bold.bgGreen(`${noteTitle} removed successfully`));
 
     readNotes();
   } catch (error) {
-    return "Unable to read notes";
+    console.log(chalk.white.bold.bgRed(error.message));
   }
 };
 
