@@ -8,11 +8,34 @@ const createNote = (name, initialData) => {
   return fs.writeFileSync(`${name}.txt`, initialData);
 };
 
-const readNotes = () => {
+const readNote = (noteTitle) => {
   try {
     const notes = returnNotes(filePath);
 
-    console.log(chalk.white.bold.bgBlack("All notes: ", notes.map(({ title, body}) => `${title} - ${body}`).join(', ')));
+    const noteExists = notes.find(({ title }) => title === noteTitle);
+
+    if (!noteExists) {
+      throw new Error("Note does not exist");
+    }
+
+    console.log(
+      chalk.white.bold.bgGreen(`${noteExists.title} - ${noteExists.body}`)
+    );
+  } catch (error) {
+    console.log(chalk.white.bold.bgRed(error.message));
+  }
+};
+
+const listNotes = () => {
+  try {
+    const notes = returnNotes(filePath);
+
+    console.log(
+      chalk.white.bold.bgBlack(
+        "All notes: ",
+        notes.map(({ title, body }) => `${title} - ${body}`).join(", ")
+      )
+    );
   } catch (error) {
     console.log(chalk.white.bold.bgRed(error.message));
   }
@@ -62,4 +85,4 @@ const removeNote = (noteTitle) => {
   }
 };
 
-module.exports = { createNote, readNotes, addNote, removeNote };
+module.exports = { createNote, listNotes, addNote, removeNote, readNote };
