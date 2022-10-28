@@ -4,10 +4,6 @@ const { returnNotes, updateNotes } = require("../utils");
 
 const filePath = "./data/index.json";
 
-const createNote = (name, initialData) => {
-  return fs.writeFileSync(`${name}.txt`, initialData);
-};
-
 const readNote = (noteTitle) => {
   try {
     const notes = returnNotes(filePath);
@@ -85,4 +81,4 @@ const removeNote = (noteTitle) => {
   }
 };
 
-module.exports = { createNote, listNotes, addNote, removeNote, readNote };
+module.exports = { listNotes, addNote, removeNote, readNote };
