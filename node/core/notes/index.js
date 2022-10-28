@@ -1,6 +1,8 @@
 const chalk = require("chalk");
 const yargs = require("yargs");
-const { addNote, removeNote, listNotes, readNote } = require("./modules/notes");
+const Notes = require("./modules/notes");
+
+const notesService = new Notes()
 
 yargs.command({
   command: "add",
@@ -18,7 +20,7 @@ yargs.command({
     },
   },
   handler({ title, body }) {
-    addNote({ title, body });
+    notesService.addNote({ title, body });
   },
 });
 
@@ -33,7 +35,7 @@ yargs.command({
     },
   },
   handler({ title }) {
-    removeNote(title);
+    notesService.removeNote(title);
   },
 });
 
@@ -48,7 +50,7 @@ yargs.command({
     },
   },
   handler({ title }) {
-    readNote(title);
+    notesService.readNote(title);
   },
 });
 
@@ -56,7 +58,7 @@ yargs.command({
   command: "list",
   describe: "List notes",
   handler() {
-    listNotes();
+    notesService.listNotes();
   },
 });
 
