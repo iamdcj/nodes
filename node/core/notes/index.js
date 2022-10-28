@@ -2,7 +2,7 @@ const chalk = require("chalk");
 const yargs = require("yargs");
 const Notes = require("./modules/notes");
 
-const notesService = new Notes()
+const notesService = new Notes();
 
 yargs.command({
   command: "add",
@@ -20,7 +20,15 @@ yargs.command({
     },
   },
   handler({ title, body }) {
-    notesService.addNote({ title, body });
+    try {
+      const addNote = notesService.addNote({ title, body });
+
+      console.log(
+        chalk.white.bold.bgGreen(`${addNote.title} added successfully`)
+      );
+    } catch (error) {
+      console.error(error.message);
+    }
   },
 });
 
@@ -35,7 +43,15 @@ yargs.command({
     },
   },
   handler({ title }) {
-    notesService.removeNote(title);
+    try {
+      const removeNote = notesService.removeNote(title);
+
+      console.log(
+        chalk.white.bold.bgGreen(`${removeNote} removed successfully`)
+      );
+    } catch (error) {
+      console.error(error.message);
+    }
   },
 });
 
@@ -50,7 +66,13 @@ yargs.command({
     },
   },
   handler({ title }) {
-    notesService.readNote(title);
+    try {
+      const note = notesService.readNote(title);
+
+      console.log(chalk.white.bold.bgGreen(`${note.title} - ${note.body}`));
+    } catch (error) {
+      console.error(error.message);
+    }
   },
 });
 
@@ -58,7 +80,18 @@ yargs.command({
   command: "list",
   describe: "List notes",
   handler() {
-    notesService.listNotes();
+    try {
+      const notes = notesService.listNotes();
+
+      console.log(
+        chalk.white.bold.bgBlack(
+          "All notes: ",
+          notes.map(({ title, body }) => `${title} - ${body}`).join(", ")
+        )
+      );
+    } catch (error) {
+      console.error(error.message);
+    }
   },
 });
 
