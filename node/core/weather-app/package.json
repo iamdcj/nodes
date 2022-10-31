@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/iamdcj/rear-end#readme",
   "dependencies": {
-    "dotenv": "^16.0.3"
+    "dotenv": "^16.0.3",
+    "postman-request": "^2.88.1-postman.31"
   }
 }
