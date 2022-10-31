@@ -1,0 +1,22 @@
+{
+  "name": "weather-app",
+  "version": "1.0.0",
+  "description": "Node-based weather app",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iamdcj/rear-end.git"
+  },
+  "author": "David Jones (@iamdcj)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iamdcj/rear-end/issues"
+  },
+  "homepage": "https://github.com/iamdcj/rear-end#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3"
+  }
+}
