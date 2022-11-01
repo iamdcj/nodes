@@ -24,3 +24,10 @@ print(
     multiplication,
     subtraction,
 )
+
+
+# Augmented Assignment
+x = 2
+x += 3
+
+print(x) ##  5
