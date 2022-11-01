@@ -30,3 +30,12 @@ print(name)
 # Nole
 
 ```
+
+## Multiple Assignments
+
+Python allows multiple variables to be initialized on a single line:
+
+```
+husband, wife, son = "David", "Steffie", "Nole"
+
+```
