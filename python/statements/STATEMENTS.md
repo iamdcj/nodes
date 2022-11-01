@@ -10,5 +10,7 @@ This simply states that we are creating a variable called `name` with a value of
 name = "David"
 ```
 
+This is known as an assignent statement.
+
 
 
