@@ -1,38 +1,14 @@
-const request = require("postman-request");
+const { geocode } = require("./geocode");
+const { returnWeather } = require("./weather");
 
-require("dotenv").config();
-
-const returnWeather = (city, [lon = -73.959894, lat = 40.789624]) => {
-  const url = `http://api.weatherstack.com/current?access_key=${process.env.WEATHER_STACK_API_KEY}&query=${lat},${lon}&units=f`;
-
-  return request({ url, json: true }, (error, response, data) => {
-
-    if (error || response.body.error) {
-      throw new Error(
-        error?.message || response.body?.error?.info || "Something went wrong"
-      );
+geocode("boston", (error, { text, coordinates }) => {
+  try {
+    if (error) {
+      throw new Error(error);
     }
 
-    const { temperature, feelslike, ...rest } = data.current;
-
-    console.log(
-      `In ${city} it is currently ${temperature} degrees out, but it feels like ${feelslike} degrees`
-    );
-  });
-};
-
-const returnCoords = (address = "brooklyn", callback) => {
-  const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?access_token=${process.env.MAPBOX_TOKEN}&limit=1`;
-
-  return request({ url, json: true }, (error, response, { features }) => {
-    if (error || response.body.error || features.length < 1) {
-      throw new Error(
-        error?.message || response.body?.error?.info || "Unable to retrieve location"
-      );
-    }
-
-    callback(features[0].text, features[0].geometry.coordinates);
-  });
-};
-
-returnCoords("boston", returnWeather);
+    returnWeather(text, coordinates);
+  } catch (error) {
+    console.log(error.message);
+  }
+});
