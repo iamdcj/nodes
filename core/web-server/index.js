@@ -2,19 +2,25 @@ const express = require("express");
 
 const app = express();
 
-app.get("", ({ req, res }) => {
-  res.send(
-    "Welcome."
-  );
+app.get("", ({ res }) => {
+  res.send("Welcome.");
 });
 
-app.get("/health-check", ({ req, res }) => {
+app.get("/about", ({ res }) => {
+  res.send("<h1>About Page</h1>");
+});
+
+app.get("/weather", ({ res }) => {
+  res.send("<h1>Weather</h1>");
+});
+
+app.get("/health-check", ({ res }) => {
   res.send(
     "In Heaven Everything is fine. You got your good things. And I've got mine."
   );
 });
 
-app.get("/help", ({ req, res }) => {
+app.get("/help", ({ res }) => {
   res.send("What is the problem?");
 });
 
