@@ -14,3 +14,13 @@ const myFunction = (callback) => {
 myFunction(() => {
   console.log("oi oi");
 });
+
+const add = (a, b, callback) => {
+  const sum = a + b;
+
+  setTimeout(() => {
+    callback(sum);
+  }, 2000);
+};
+
+add(4, 9, (sum) => console.log(sum));
