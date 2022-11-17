@@ -4,7 +4,7 @@ require("dotenv").config();
 
 const returnWeather = (city, [lon = -73.959894, lat = 40.789624]) => {
   const url = `http://api.weatherstack.com/current?access_key=${process.env.WEATHER_STACK_API_KEY}&query=${lat},${lon}&units=f`;
-  
+
   return request({ url, json: true }, (error, response, data) => {
 
     if (error || response.body.error) {
@@ -25,9 +25,9 @@ const returnCoords = (address = "brooklyn") => {
   const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?access_token=${process.env.MAPBOX_TOKEN}&limit=1`;
 
   return request({ url, json: true }, (error, response, { features }) => {
-    if (error || response.body.error) {
+    if (error || response.body.error || features.length < 1) {
       throw new Error(
-        error?.message || response.body?.error?.info || "Something went wrong"
+        error?.message || response.body?.error?.info || "Unable to retrieve location"
       );
     }
 
