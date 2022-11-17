@@ -21,7 +21,7 @@ const returnWeather = (city, [lon = -73.959894, lat = 40.789624]) => {
   });
 };
 
-const returnCoords = (address = "brooklyn") => {
+const returnCoords = (address = "brooklyn", callback) => {
   const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?access_token=${process.env.MAPBOX_TOKEN}&limit=1`;
 
   return request({ url, json: true }, (error, response, { features }) => {
@@ -31,8 +31,8 @@ const returnCoords = (address = "brooklyn") => {
       );
     }
 
-    returnWeather(features[0].text, features[0].geometry.coordinates);
+    callback(features[0].text, features[0].geometry.coordinates);
   });
 };
 
-returnCoords();
+returnCoords("boston", returnWeather);
