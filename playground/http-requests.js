@@ -7,7 +7,6 @@ const returnWeather = () => {
   const request = http.request(url, (response) => {
     let data = "";
 
-
     response.on("data", (chunk) => {
       data += chunk.toString();
     });
