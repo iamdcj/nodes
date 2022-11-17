@@ -11,7 +11,7 @@ app.get("/about", ({ res }) => {
 });
 
 app.get("/weather", ({ res }) => {
-  res.send("<h1>Weather</h1>");
+  res.json({ location: "New York", forecast: "Shite" });
 });
 
 app.get("/health-check", ({ res }) => {
@@ -21,7 +21,7 @@ app.get("/health-check", ({ res }) => {
 });
 
 app.get("/help", ({ res }) => {
-  res.send("What is the problem?");
+  res.send("What's up?");
 });
 
 app.listen(1919, () => {
