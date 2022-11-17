@@ -17,9 +17,11 @@ const geocode = (address = "brooklyn", callback) => {
       );
     }
 
+    const { text, geometry } = features[0];
+
     callback(null, {
-      text: features[0].text,
-      coordinates: features[0].geometry.coordinates,
+      text,
+      coordinates: geometry?.coordinates,
     });
   });
 };
