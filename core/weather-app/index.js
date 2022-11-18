@@ -36,8 +36,6 @@ app.get("", ({ res }) => {
 app.get("/api/weather", (req, res) => {
   const { query } = req;
 
-  console.log(query.q);
-
   geocode(query.q, (error, data) => {
     if (error || !data) {
       return res.status(400).render("home", {

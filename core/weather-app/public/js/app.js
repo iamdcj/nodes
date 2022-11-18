@@ -4,7 +4,7 @@
 
     const notice = document.querySelector(".weather-notice");
 
-    notice.innerHTML = `In ${text} it is ${temperature} but feels like ${feelslike}`;
+    notice.innerHTML = `In ${text} it is ${temperature}°F but feels like ${feelslike}°F`;
   };
 
   const fetchWeather = async (event) => {
