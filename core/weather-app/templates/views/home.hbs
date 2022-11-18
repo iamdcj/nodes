@@ -2,14 +2,17 @@
 <p class="weather-notice"></p>
 
 <form class="weather-form">
-  <div>
-    <label for="weather-input">Location (US only)</label>
-    <input
-      type="search"
-      id="weather-input"
-      name="weather-input"
-      placeholder="e.g. Boston"
-    />
+  <div class="weather-form__control">
+    <label for="weather-input">Please enter your city/town (US only)</label>
+    <div class="weather-form__input">
+      <input
+        type="search"
+        id="weather-input"
+        name="weather-input"
+        placeholder="e.g. Boston"
+      />
+      <button type="submit">Fetch Weather</button>
+    </div>
+
   </div>
-  <button type="submit">Fetch Weather</button>
 </form>

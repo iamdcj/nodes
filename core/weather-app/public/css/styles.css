@@ -1,3 +1,55 @@
 html {
-    background: beige;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.weather-notice {
+  font-size: 32px;
+  margin-bottom: 36px;
+}
+
+.weather-form__control {
+  display: flex;
+  flex-direction: column;
+}
+
+.weather-form__control label {
+    margin-bottom: 12px;
+  }
+
+.weather-form__control input {
+  padding: 12px 20px;
+  width: 600px;
+  border: 1px solid grey;
+  border-radius: 20px;
+  margin-bottom: 24px;
+  height: 48px;
+}
+
+.weather-form__control button {
+    background: orange;
+    border-radius: 0 20px 20px 0;
+    outline: none;
+    border: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    height: 48px;
+  }
+  
+
+
+.weather-form__input {
+    position: relative;
+  }
+  
