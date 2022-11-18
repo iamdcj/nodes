@@ -55,6 +55,29 @@ main {
   opacity: 1;
 }
 
+.did--error .site-error {
+  opacity: 1;
+}
+
+.site-error {
+  opacity: 0;
+  pointer-events: none;
+  background: red;
+  font-size: 18px;
+  color: #fff;
+  border-radius: 20px;
+  position: fixed;
+  bottom: 12px;
+  right: 30px;
+  min-width: 20vw;
+  z-index: 2;
+  padding: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 500ms ease-in;
+}
+
 .site-loader {
   opacity: 0;
   pointer-events: none;

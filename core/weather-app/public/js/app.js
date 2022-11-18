@@ -1,15 +1,15 @@
 (function () {
+  const _doc = document.documentElement;
+  const _notice = document.querySelector(".weather-notice");
+  const _error = document.querySelector(".site-error");
+
   const renderWeather = (data) => {
     const { temperature, feelslike, text } = data;
 
-    const notice = document.querySelector(".weather-notice");
-
-    notice.innerHTML = `In ${text} it is ${temperature}°F but feels like ${feelslike}°F`;
+    _notice.innerHTML = `In ${text} it is ${temperature}°F but feels like ${feelslike}°F`;
   };
 
   const renderLoader = (shouldRender) => {
-    const _doc = document.documentElement;
-
     if (shouldRender) {
       _doc.classList.add("is--loading");
     } else {
@@ -17,9 +17,23 @@
     }
   };
 
+  const renderError = (shouldRender, message) => {
+    if (shouldRender) {
+      _error.innerHTML = message;
+      _doc.classList.add("did--error");
+
+      setTimeout(() => {
+        renderError(false);
+      }, 5000);
+    } else {
+      _doc.classList.remove("did--error");
+    }
+  };
+
   const fetchWeather = async (event) => {
     event.preventDefault();
 
+    renderError(false);
     renderLoader(true);
 
     const formData = new FormData(event.target);
@@ -27,17 +41,17 @@
     const location = formData.get("weather-input");
 
     try {
-      const req = await fetch(`api/weather?q=${location}`);
+      const req = await fetch(`api/wather?q=${location}`);
 
       const data = await req.json();
 
       renderWeather(data);
-
-      renderLoader(false);
     } catch (error) {
-      renderLoader(false);
+      renderError(true, error.message);
       console.error(error);
     }
+
+    renderLoader(false);
   };
 
   const form = document.querySelector(".weather-form");
