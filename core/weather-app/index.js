@@ -1,34 +1,41 @@
 const express = require("express");
-const path = require("path")
+const path = require("path");
 const { doc } = require("./document");
+const { engine } = require("express-handlebars");
 
 const app = express();
-const public = path.join(__dirname, './public')
 
-app.use(express.static(public))
+app.use(express.static(path.join(__dirname, "./public")));
 
-app.get("", ({ res }) => {
-  res.send(doc("<h1>Welcome</h1>", "Weather App | Home"));
-});
-
-app.get("/about", ({ res }) => {
-  res.send(doc("<h1>About Page</h1>", "Weather App | About"));
-});
-
-app.get("/weather", ({ res }) => {
-  res.json({ location: "New York", forecast: "Shite" });
-});
+app.engine(
+  "hbs",
+  engine({
+    defaultLayout: "main",
+    extname: ".hbs",
+    layoutsDir: path.join(__dirname, "./templates/layouts"),
+    partialsDir: path.join(__dirname, "./templates/partials"),
+  })
+);
+app.set("view engine", "hbs");
+app.set("views", path.join(__dirname, "./templates/views"));
 
 app.get("/health-check", ({ res }) => {
   res.send(
-    doc(
-      "<p>In Heaven Everything is fine. You got your good things. And I've got mine.</p>"
-    )
+    "<p>In Heaven Everything is fine. You got your good things. And I've got mine.</p>"
   );
 });
 
-app.get("/help", ({ res }) => {
-  res.send(doc("<h1>Help</h1>"));
+app.get("", ({ res }) => {
+  res.render("home", {
+    title: "Weather App | Home",
+    pageTitle: "Welcome",
+  });
+});
+
+app.get("*", ({ res }) => {
+  res.render("404", {
+    title: "Weather App | Home",
+  });
 });
 
 app.listen(1919, () => {
