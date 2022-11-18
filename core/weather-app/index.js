@@ -26,8 +26,17 @@ app.get("/health-check", ({ res }) => {
   );
 });
 
-app.get("/", (req, res) => {
+app.get("", ({ res }) => {
+  res.render("home", {
+    title: "Weather App | Home",
+    pageTitle: "Welcome",
+  });
+});
+
+app.get("/api/weather", (req, res) => {
   const { query } = req;
+
+  console.log(query.q);
 
   geocode(query.q, (error, data) => {
     if (error || !data) {
@@ -49,17 +58,13 @@ app.get("/", (req, res) => {
         });
       }
 
-      const { temperature, feelslike } = data;
-
-      res.render("home", {
-        title: "Weather App | Home",
-        pageTitle: "Welcome",
-        content: `In ${text} it is currently ${temperature} degrees out, but it feels like ${feelslike} degrees`,
+      res.json({
+        ...data,
+        text
       });
     });
   });
 });
-
 app.get("*", ({ res }) => {
   res.render("404", {
     title: "Weather App | Home",
