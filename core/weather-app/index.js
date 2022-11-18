@@ -1,7 +1,8 @@
 const express = require("express");
 const path = require("path");
-const { doc } = require("./document");
 const { engine } = require("express-handlebars");
+const { geocode } = require("./services/geocode");
+const { returnWeather } = require("./services/weather");
 
 const app = express();
 
@@ -25,10 +26,37 @@ app.get("/health-check", ({ res }) => {
   );
 });
 
-app.get("", ({ res }) => {
-  res.render("home", {
-    title: "Weather App | Home",
-    pageTitle: "Welcome",
+app.get("/", (req, res) => {
+  const { query } = req;
+
+  geocode(query.q, (error, data) => {
+    if (error || !data) {
+      return res.status(400).render("home", {
+        title: "Weather App | Home",
+        pageTitle: "Welcome",
+        content: error,
+      });
+    }
+
+    const { text, coordinates } = data;
+
+    returnWeather(coordinates, (error, data) => {
+      if (error || !data) {
+        return res.status(400).render("home", {
+          title: "Weather App | Home",
+          pageTitle: "Welcome",
+          content: error,
+        });
+      }
+
+      const { temperature, feelslike } = data;
+
+      res.render("home", {
+        title: "Weather App | Home",
+        pageTitle: "Welcome",
+        content: `In ${text} it is currently ${temperature} degrees out, but it feels like ${feelslike} degrees`,
+      });
+    });
   });
 });
 
