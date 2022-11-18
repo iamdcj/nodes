@@ -1,8 +1,7 @@
 const express = require("express");
 const path = require("path");
 const { engine } = require("express-handlebars");
-const { geocode } = require("./services/geocode");
-const { returnWeather } = require("./services/weather");
+const { weatherByLocation } = require("./api/weather");
 
 const app = express();
 
@@ -35,33 +34,14 @@ app.get("", ({ res }) => {
 
 app.get("/api/weather", (req, res) => {
   const { query } = req;
-
-  geocode(query.q, (error, data) => {
-    if (error || !data) {
-      return res.status(400).render("home", {
-        title: "Weather App | Home",
-        pageTitle: "Welcome",
-        content: error,
-      });
-    }
-
-    const { text, coordinates } = data;
-
-    returnWeather(coordinates, (error, data) => {
-      if (error || !data) {
-        return res.status(400).render("home", {
-          title: "Weather App | Home",
-          pageTitle: "Welcome",
-          content: error,
-        });
-      }
-
-      res.json({
-        ...data,
-        text
-      });
+  
+  try {
+    weatherByLocation(query.q, (data) => {
+      res.send(data);
     });
-  });
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
 });
 app.get("*", ({ res }) => {
   res.render("404", {
