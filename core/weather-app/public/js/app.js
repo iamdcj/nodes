@@ -1,3 +1,5 @@
+"use strict";
+
 (function () {
   const _doc = document.documentElement;
   const _notice = document.querySelector(".weather-notice");
